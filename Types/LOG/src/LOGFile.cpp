@@ -12,7 +12,6 @@ std::string_view LOGFile::GetTypeName()
 {
     return "LOG File";
 }
-
 bool LOGFile::Update(Reference<GView::Object> _obj)
 {
     this->obj = _obj;
@@ -33,11 +32,11 @@ bool LOGFile::Update(Reference<GView::Object> _obj)
         std::smatch match;
         if (std::regex_search(line, match, regex)) {
             if (match.size() == 4) {
-                events.push_back(new event(match[1], match[2], match[3]));  // timestamp, type, details
+                events.push_back(new event{match[1].str(), match[2].str(), match[3].str()}); // timestamp, type, details
             }
             else
             {
-                events.push_back(new event(match[1], "UNKNOWN", line));
+                events.push_back(new event{match[1].str(), "UNKNOWN", line});
             }
         }
     }

@@ -34,7 +34,10 @@ namespace Type
 
           public:
             LOGFile();
-            virtual ~LOGFile() = default;
+            virtual ~LOGFile()
+            {
+
+            }
 
             std::string_view GetTypeName() override;
             void RunCommand(std::string_view) override
@@ -79,16 +82,17 @@ namespace Type
               private:
                 Reference<GView::Type::LOG::LOGFile> log;
                 Reference<AppCUI::Controls::ListView> general;
+                Reference<AppCUI::Controls::ListView> issues;
+
+                void UpdateGeneralInformation();
+                void UpdateIssues();
+                void RecomputePanelsPositions();
 
               public:
                 Information(Reference<GView::Type::LOG::LOGFile> log);
 
                 void Update();
                 virtual void OnAfterResize(int newWidth, int newHeight) override;
-
-              private:
-                void UpdateGeneralInformation();
-                void RecomputePanelsPositions();
             };
         }; // namespace Panels
     }      // namespace LOG
